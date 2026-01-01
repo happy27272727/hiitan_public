@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <!-- PWA 標準用 -->
+        <meta name="mobile-web-app-capable" content="yes">
+
+        <!-- iOS 用アイコン -->
+        <link rel="apple-touch-icon" href="icon-192.png">
+        <link rel="manifest" href="manifest.json">
+        <meta name="theme-color" content="#4CAF50">
+        <title>ヒビタン</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script type="module" src="lib/Hibitan.js"></script>
+        <link href="lib/Hibitan.css" rel="stylesheet" media="all">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="default">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    </head>
+
+    <body>
+        <!--ログイン画面-->
+        <div id="syokiGamen" class="screen active">
+            <h1>ヒビタン</h1>
+            <button id="startTutorialBtn">新規登録</button>
+            <label for="loginName">ニックネーム</label>
+            <input type="text" id="loginName" maxlength="15" placeholder="例：くり" />
+            <label for="loginPassword">パスワード</label>
+            <input type="password" id="loginPassword" maxlength="6" placeholder="例：123456">
+            <button id="roguinButton" type="button">ログイン</button>
+            <!-- キャラクター用 -->
+            <p>ドラッグ&ドロップで狙撃！</p>
+            <p>可哀そうになったらタップして餌を置こう🍚</p>
+            <div id="gameArea">
+                <div id="character">🐱</div>
+            </div>
+        </div>
+
+        <div id="step1" class="screen">
+            <h1>ヒビタンとは</h1>
+            <p>ヒビタンは、<br>日々を淡々と記録するアプリです。</p>
+            <br>
+            <p>出来た日も、<br>出来なかった日も。</p>
+            <p>そこにあるのは、事実だけ。</p>
+            <br>
+            <p>やると決めたのは、自分。<br>やらなかったのも、自分。</p>
+            <p>ヒビタンは、<br>その結果に口出ししません。</p>
+            <div class="button-group">
+                <button data-action="next" data-next="step2">次へ</button>
+                <button data-action="skip">後で見る</button>
+            </div>
+        </div>
+
+        <!-- ② 日々の記録 -->
+        <div id="step2" class="screen">
+            <h1>日々の記録</h1>
+            <p>その日、出来たかどうか。<br>
+                「記録」ボタンを押すだけで、<br>その事実が記録されます。</p>
+            <div class="button-group">
+                <button data-action="next" data-next="step3">次へ</button>
+                <button data-action="back">戻る</button>
+                <button data-action="skip">後で見る</button>
+            </div>
+        </div>
+
+        <!-- ③ 新規登録 -->
+        <div id="step3" class="screen">
+            <h1>新規登録</h1>
+            <p>記録するために、最初に決めること。</p>
+            <p>目標や意気込み、合言葉を決めます。<br>
+                何を続けるかは、あなた次第。</p>
+            <div class="button-group">
+                <!-- step3 内 -->
+                <button data-action="next" data-next="step4">次へ</button>
+                <button data-action="back">戻る</button>
+                <button data-action="skip">後で見る</button>
+            </div>
+        </div>
+
+        <!-- ④ 合言葉 -->
+        <div id="step4" class="screen">
+            <h1>合言葉</h1>
+            <p>同じ合言葉の人たちの記録を、<br>
+                静かに確認できます。</p>
+            <p>目標、今日の記録、連続日数、意気込み。<br>
+                誰かと比べるためではなく、<br>
+                それぞれが続けている「事実」を見るためのものです。</p>
+            <div class="button-group">
+                <button id="step4Button">新規登録へ</button>
+                <button data-action="back">戻る</button>
+            </div>
+        </div>
+
+
+        <!--ホーム画面-->
+        <div id="homeGamen" class="screen">
+
+            <h1>ヒビタン</h1>
+            <p id="date"></p>
+            <p>出来た日も。</p>
+            <p>出来なかった日も。</p>
+            <p>今日をそのまま残すこと。</p>
+
+            <div id="userGoal" style="margin-top:20px;">
+                <p id="mokuhyouHyouzi"></p>
+                <p id="ikigomiHyouzi"></p>
+                <p id="renzokuHyouzi"></p>
+            </div>
+
+            <div class="form-group">
+                <label for="dailyNoteInput">一言日記</label>
+                <textarea maxlength="100" id="dailyNoteInput" rows="4" placeholder="任意"></textarea>
+                <button id="tasseiButton">記録</button>
+            </div>
+
+            <!-- サブメニュー -->
+            <div id="bottomMenu" class="bottom-menu">
+                <button data-nav="commentGamen" class="bottom-btn">コメント</button>
+                <button id="editProfileBtn" class="bottom-btn">編集</button>
+                <button id="nakamaButton" class="bottom-btn">仲間</button>
+            </div>
+
+        </div>
+
+
+        <!--新規登録画面-->
+        <div id="sinkiTourokuGamen" class="screen">
+            <h1>新規登録</h1>
+
+            <!--名前入力-->
+            <div class="form-group">
+                <label for="nameInput">ニックネーム</label>
+                <input type="text" id="nameInput" maxlength="15" placeholder="例：くり" />
+            </div>
+
+            <div class="form-group">
+                <label for="passInput">パスワード</label>
+                <input type="password" id="passInput" maxlength="6" oninput="this.value = this.value.replace(/\s/g,'');" placeholder="例：123456" />
+            </div>
+
+            <!--目標入力-->
+            <div class="form-group">
+                <label for="mokuhyouInput">目標</label>
+                <input type="text" id="mokuhyouInput" maxlength="35" placeholder="例：毎日素振り100回" />
+            </div>
+
+            <!--合言葉-->
+            <div class="form-group">
+                <label for="aikotoba">合言葉</label>
+                <input type="text" id="aikotoba" maxlength="15" placeholder="例：マスカット" />
+            </div>
+
+            <!--意気込み-->
+            <div class="form-group">
+                <label for="ikigomi">意気込み</label>
+                <input type="text" id="ikigomi" maxlength="30" placeholder="例：錦織を超える。本気だよ？" />
+            </div>
+
+            <!--登録ボタン-->
+            <button id="tourokuButton">登録</button>
+            <button data-action="back">戻る</button>
+        </div>
+
+        <!--仲間の様子-->
+        <div id="nakamanoYousu" class="screen">
+            <h1 id="teamHeader">チーム:</h1>
+            <div id="nakamaList"></div>
+            <button data-action="back">戻る</button>
+        </div>
+
+        <!-- 更新 -->
+        <div id="editProfileScreen" class="screen">
+            <h1>プロフィール編集</h1>
+
+            <div class="form-group">
+                <label for="editName">ニックネーム</label>
+                <input type="text" id="editName" placeholder="名前を入力">
+            </div>
+
+            <div class="form-group">
+                <label for="editMokuhyou">目標</label>
+                <input type="text" id="editMokuhyou" placeholder="目標を入力">
+            </div>
+
+            <div class="form-group">
+                <label for="editIkigomi">意気込み</label>
+                <input type="text" id="editIkigomi" placeholder="意気込みを入力">
+            </div>
+
+            <button id="updateProfileBtn">更新</button>
+            <button data-action="back">戻る</button>
+        </div>
+
+
+        <!--機能概要-->
+        <div id="kinouGaiyou" class="screen">
+            <button data-action="back">戻る</button>
+        </div>
+
+
+        <div id="commentGamen" class="screen">
+            <h1>コメント</h1>
+
+            <div class="form-group">
+                <p style="font-size:0.85em; color:#6a5333; margin-bottom:8px;">
+                    ※ログイン中のニックネームと一緒に届きます！<br>
+                    　見るのは僕だけです！
+                </p>
+                <textarea id="commentInput" maxlength="100" rows="10"
+                          placeholder="改善案・感想・こんな機能あったらおもろい！など"
+                          ></textarea>
+            </div>
+            <button id="commentSendButton">登録</button>
+            <button data-action="back">戻る</button>
+        </div>
+
+
+        <script>
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.register('./sw.js')
+                        .then(() => console.log('SW registered'))
+                        .catch(err => console.error(err));
+            }
+        </script>
+    </body>
+</html>
+
